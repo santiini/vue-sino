@@ -36,4 +36,11 @@
 
 ```js
   component: require('./Home.vue').default
+
 ```
+
+### ajax请求的缓存问题: 通过时间戳解决问题 -- get请求
+
+为get请求添加额外时间戳参数：例如 t=new Date().getTime(), 在axios中，可以在发送前的拦截器中设置;
+
+### vux中的scrollbar的css问题：

@@ -29,11 +29,11 @@
           :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')")
           keep-alive(include="event-hub")
             router-view.router-view
-        tabbar.vux-demo-tabbar(icon-class="vux-enter" v-show="isTabbarDemo" slot="bottom")
+        tabbar.vux-demo-tabbar(icon-class="vux-enter" v-show="!isTabbarDemo" slot="bottom")
           tabbar-item(:link="{path: '/'}" :selected="route.path === '/'")
             span.demo-icon-22.vux-demo-tabbar-icon-home(slot="icon" style="position:relative;top:-2px") &#xe637;
             span(slot="label") Home
-          tabbar-item(:link="{path: '/demo'}" :selected="isDemo" badge="9")
+          tabbar-item(:link="{path: '/demos'}" :selected="isDemo" badge="9")
             span.demo-icon-22(slot="icon") &#xe633;
             span(slot="label")
               span.vux-demo-tabbar-component(v-if="componentName") {{ componentName }}
@@ -262,6 +262,7 @@
   .menu-title
     color #888
   // 先写到主页的全局css
+  // 1. 底部按钮的css
   .btn-box
     padding 10px
     display flex

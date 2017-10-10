@@ -26,6 +26,7 @@ const menus = [
   {
     name: 'indexedDB',
     icon: '&#xe62a',
+    list: ['index', 'dexie', 'indexedDB'],
   },
 ];
 

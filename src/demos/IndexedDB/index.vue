@@ -1,5 +1,8 @@
 <template lang="pug">
   .demo-indexedDB
+    group(title="两种使用方式")
+      cell(title="dexie" :link="{path: '/demos/indexedDB/dexie'}")
+      cell(title="indexedDB" :link="{path: '/demos/indexedDB/indexedDB'}")
     //- list列表
     group(title="indexedDB的数据")
       template(v-if="list")
@@ -159,7 +162,7 @@
         title: 'indexedDB',
       })
       // indexedDB的操作;
-      console.log(this.$db.friends)
+      // console.log(this.$db.friends)
     },
     data() {
       return {

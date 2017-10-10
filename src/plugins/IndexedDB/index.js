@@ -28,7 +28,8 @@ export default {
             // operatorTask: '&id,name,beginTime,endTime', // 操作票详情
             // errorFile: '&facilityId,imgPaths,audioPaths,videoPaths', // 待上传文件的路径;
 
-            friends: '&id, name, age',
+            // friends: '&id, name, age', // id来源于已经有的id
+            friends: '++id, name, age', // id是有indexedDB自生成的id -- id必须传入
             gameSessions: '&id, score',
           });
           db.open()
@@ -41,8 +42,8 @@ export default {
         console.error(err.stack || err);
       })
     /* eslint-disable no-param-reassign */
-    Vue.prototype.$DB = indexedDB;
-    Vue.prototype.$db = db;
+    Vue.prototype.$DB = indexedDB; // 指向封装库
+    Vue.prototype.$db = db; // 指向dexie的实例
     Vue.$database = indexedDB;
   },
 };

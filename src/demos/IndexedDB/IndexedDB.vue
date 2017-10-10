@@ -8,10 +8,11 @@
     //- form填写
     group(title="form表单")
       cell(title="唯一不可修改id" :value="friend.id")
-      x-input(title="姓名" placeholder="输入name" v-model="friend.name")
-      x-number(title="年龄" placeholder="输入age" v-model="friend.age")
+      x-input(title="姓名" placeholder="输入name" v-model.trim="friend.name")
+      x-number(title="年龄" placeholder="输入age" v-model.trim="friend.age")
     .btn-box
-      x-button(type="primary") 保存
+      x-button(type="primary" @click.native="saveFriends") 保存
+      x-button(type="warn" @click.native="resetForm") 清空
     //- indexedDB的操作
     group(title="indexedDB的增删改查")
       .btn-box
@@ -33,7 +34,9 @@
     methods: {
       // idnexedDB的方法测试;
       chooseFriend(friend) {
-        this.friend = friend
+        // 数据的深度clone
+        // this.friend = friend
+        this.friend = Object.assign({}, friend)
       },
       addData() {
         console.log('添加')
@@ -136,6 +139,7 @@
           console.log(friends)
         })
       },
+      // 获取列表中的数据：page和 pageSize;
       getLimit() {
         // offset/limit
         this.$db.friends.where('age').above(12).offset(1).limit(1)
@@ -143,14 +147,74 @@
               console.log(friends)
             })
       },
-
+      // 初始化indexedDB中的数据
+      async initIndexedDB() {
+        try {
+          const friends = await this.$DB.getAll('friends')
+          console.log(friends)
+          if (friends.data.list.length < 1) {
+            this.list = this.listData
+            await this.$DB.addList('friends', this.list)
+          } else {
+            this.list = friends.data.list
+          }
+        } catch (err) {
+          console.log(err)
+          this.$vux.toast.show({
+            type: 'warn',
+            text: 'indexedDB初始化失败',
+          })
+        }
+      },
+      // 保存修改内容或添加新内容
+      async saveFriends() {
+        if (this.friend.name === '') {
+          return this.$vux.toast.show({
+            type: 'warn',
+            text: '请输入姓名',
+            isShowMask: true,
+            time: 1500,
+          })
+        }
+        try {
+          let msg
+          const { id, ...data } = this.friend
+          // this.$DB.addOne('friends', this.friend)
+          // this.$DB.addOne('friends', { name: '小花2', age: 22 })
+          // this.$DB.addOne('friends', { id: 5, name: '小花2', age: 22 })
+          if (id) {
+            // 修改
+            msg = '修改成功'
+            await this.$DB.updateOne('friends', this.friend.id, data)
+          } else {
+            msg = '添加成功'
+            await this.$DB.addOne('friends', data)
+          }
+          this.$vux.toast.show({
+            text: msg,
+            isShowMask: true,
+            time: 1500,
+          })
+        } catch (err) {
+          console.log(err)
+        }
+      },
+      // 初始化表格数据
+      resetForm() {
+        this.friend = {
+          id: undefined,
+          name: '',
+          age: 0,
+        }
+      },
     },
     created() {
       this.$store.dispatch('setHeader', {
         title: 'indexedDB',
       })
       // indexedDB的操作;
-      console.log(this.$db.friends)
+      // console.log(this.$db.friends)
+      this.initIndexedDB()
     },
     data() {
       return {
@@ -160,15 +224,19 @@
           { name: '小红2', age: 15 },
         ],
         friend: {
-          id: '',
+          id: undefined,  // id自增长
           name: '',
           age: 10,
         },
-        list: [
-          { id: 1, name: '小涛1', age: 24 },
-          { id: 2, name: '小白1', age: 21 },
-          { id: 3, name: '小红1', age: 15 },
+        listData: [
+          { name: '小涛1', age: 24 },
+          { name: '小白1', age: 21 },
+          { name: '小红1', age: 15 },
+          // { id: 1, name: '小涛1', age: 24 },
+          // { id: 2, name: '小白1', age: 21 },
+          // { id: 3, name: '小红1', age: 15 },
         ],
+        list: undefined,
       }
     },
   }

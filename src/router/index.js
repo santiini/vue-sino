@@ -15,8 +15,10 @@ const upperName = (name) => {
   const names = name.split('-').map(el => firstUpper(el)).join('')
   return names
 };
+// 根据data 动态配置路由列表 -- 路由级数和路由名称的大小写转化;
 const menuRoutes = menus.reduce((prev, cur) => {
   if (cur.list) {
+    // 这是一个多路由的配置
     cur.list.forEach((name) => {
       prev.push({
         path: `/demos/${cur.name}/${name}`,
@@ -25,6 +27,7 @@ const menuRoutes = menus.reduce((prev, cur) => {
       })
     })
   } else {
+    // 单一路由的配置
     const { name } = cur;
     prev.push({
       path: `/demos/${name}`,

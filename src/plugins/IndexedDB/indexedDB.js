@@ -35,6 +35,14 @@ export default class IndexedDB {
    * @memberof IndexedDB
    */
   async getAll(table, { page, pageSize, ...params } = {}) {
+    // 判断是否有传入参数 -- 获取所有列表
+    // console.log(params)
+    if (!params || Object.keys(params).length < 1) {
+      console.log('没有参数')
+      const list = await this.db[table].toArray();
+      return getRestApi({ list }, 1001);
+    }
+    // 判断是否根据参数查询
     if (!page) {
       const list = await this.db[table].where(params).toArray();
       return getRestApi({ list }, 1001);
@@ -63,7 +71,7 @@ export default class IndexedDB {
   /**
    * 添加单项数据
    * @param {any} table
-   * @param {any} data
+   * @param {any} data 添加时有唯一的keyPath, 不用indexedDB生成
    * @returns
    * @memberof IndexedDB
    */
@@ -144,13 +152,13 @@ export default class IndexedDB {
   }
 
   /**
-   * 按条件更新
+   * 按条件更新 -- 无法获取唯一key, 根据条件获取数据，更新数据
    * @param {any} table
-   * @param {any} {key, value, chnages}
+   * @param {any} {key, value, changes}
    * @returns
    * @memberof IndexedDB
    */
-  async updateByParams(table, {key, value, chnages}) {
+  async updateByParams(table, {key, value, changes}) {
     const result = await this.db[table].where(key).equals(value).modify(changes);
     return getRestApi(result, 1007);
   }
