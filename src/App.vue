@@ -27,6 +27,13 @@
             x-icon(type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;")
         transition(@after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
           :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')")
+          //- 组件缓存--keep-alive的两种形式
+          //- 1.keep-alive的 include/exclude属性，参数是组件名称，适用于简单应用
+            //- keep-alive(include="a,b" exclude="c,d")
+          //- 2.keep-alive 结合 v-if和 route.meta的判断, 适用于复杂项目
+          //- keep-alive
+          //-   router-view(v-if="$route.meta.keepAlive")
+          //- router-view(v-if="!$route.meta.keepAlive")
           keep-alive(include="event-hub")
             router-view.router-view
         tabbar.vux-demo-tabbar(icon-class="vux-enter" v-show="!isTabbarDemo" slot="bottom")

@@ -56,6 +56,8 @@ export default new Router({
       name: 'demos',
       component: _import('Demos'),
     },
+    // 用于组件缓存测试的组件
+    // ...
     ...menuRoutes,
     // {
     //   path: '/demos/class',
