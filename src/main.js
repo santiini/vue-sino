@@ -74,6 +74,7 @@ router.beforeEach(function (to, from, next) {
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)
 
+  // 改变路由的历史记录，决定route跳转的transition效果;
   if (toIndex) {
     if (!fromIndex || parseInt(toIndex, 10) > parseInt(fromIndex, 10) || (toIndex === '0' && fromIndex === '0')) {
       store.commit('updateDirection', {direction: 'forward'})
@@ -87,19 +88,34 @@ router.beforeEach(function (to, from, next) {
     store.commit('updateDirection', {direction: 'forward'})
   }
 
-  router.afterEach(function (to) {
-    store.commit('updateLoadingStatus', {isLoading: false})
-    if (process.env.NODE_ENV === 'production') {
-      ga && ga('set', 'page', to.fullPath)
-      ga && ga('send', 'pageview')
-    }
-  })
+  // 判断meta.keepAlive，组件是否缓存，并保存到keepAlList
+  // console.log(to)
+  // const { name } = to.name;
+  const component = to.matched && to.matched[0].components;
+  const { name } = component.default;
+  let keepList = store.state.keepAlList;
+  const keepIndex = keepList.indexOf(name);
+  if (to.meta && to.meta.keepAlive) {
+    keepIndex < 0 ? keepList.push(name) : '';
+  } else {
+    keepIndex > 0 ? keepList.splice(keepIndex, 1) : '';
+  }
+  store.commit('SET_KEEPLIST', { data: keepList });
 
+  // 路由跳转
   if (/\/http/.test(to.path)) {
     let url = to.path.split('http')[1]
     window.location.href = `http${url}`
   } else {
     next()
+  }
+})
+
+router.afterEach(function (to) {
+  store.commit('updateLoadingStatus', {isLoading: false})
+  if (process.env.NODE_ENV === 'production') {
+    ga && ga('set', 'page', to.fullPath)
+    ga && ga('send', 'pageview')
   }
 })
 

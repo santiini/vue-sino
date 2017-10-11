@@ -25,16 +25,18 @@
           span(v-if="route.path === '/' || route.path === '/component/drawer'" slot="overwrite-left"
             @click="drawerVisibility = !drawerVisibility")
             x-icon(type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;")
-        //- transition(@after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
-        //-   :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')")
+        transition(@after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
+          :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')")
+          keep-alive(:include="keepAlList")
+            router-view.router-view
           //- 组件缓存--keep-alive的两种形式
           //- 1.keep-alive的 include/exclude属性，参数是组件名称，适用于简单应用
             //- keep-alive(include="a,b" exclude="c,d")
           //- 2.keep-alive 结合 v-if和 route.meta的判断, 适用于复杂项目
           //- tips: 问题在于 下面正确的使用方式和 transition组件的冲突;
-        keep-alive
-          router-view.router-view(v-if="$route.meta && $route.meta.keepAlive")
-        router-view.router-view(v-if="!$route.meta || !$route.meta.keepAlive")
+        //- keep-alive
+        //-   router-view.router-view(v-if="$route.meta && $route.meta.keepAlive")
+        //- router-view.router-view(v-if="!$route.meta || !$route.meta.keepAlive")
 
           //- tips: template(v-if)会导致其他问题的出现：详见keep-index中的2和3;
           //- template(v-if="$route.meta && $route.meta.keepAlive")
@@ -43,9 +45,6 @@
           //- template(v-else)
           //-   router-view.router-view
             //- router-view.router-view(v-if="!$route.meta.keepAlive")
-
-          //- keep-alive(include="event-hub")
-          //-   router-view.router-view
         tabbar.vux-demo-tabbar(icon-class="vux-enter" v-show="!isTabbarDemo" slot="bottom")
           tabbar-item(:link="{path: '/'}" :selected="route.path === '/'")
             span.demo-icon-22.vux-demo-tabbar-icon-home(slot="icon" style="position:relative;top:-2px") &#xe637;
@@ -158,6 +157,8 @@
         demoTop: state => state.vux.demoScrollTop,
         isLoading: state => state.vux.isLoading,
         direction: state => state.vux.direction,
+        // keepAlList是用来动态判断组件是否需要keep-alive,建议保存到vuex中作为全局变量
+        keepAlList: state => state.keepAlList,
       }),
     },
     data() {
