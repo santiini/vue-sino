@@ -43,7 +43,7 @@
       // 路由跳转
       go(demo) {
         const { name, list } = demo
-        const routeName = demo.list ? `${name}/${list[0]}` : `${name}`
+        const routeName = demo.list ? `${name}/${list[0].name}` : `${name}`
         // console.log(routeName)
         this.$router.push(`/demos/${routeName}`)
       },

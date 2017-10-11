@@ -19,19 +19,20 @@ const upperName = (name) => {
 const menuRoutes = menus.reduce((prev, cur) => {
   if (cur.list) {
     // 这是一个多路由的配置
-    cur.list.forEach((name) => {
+    cur.list.forEach((item) => {
+      const { name, meta } = item
       prev.push({
         path: `/demos/${cur.name}/${name}`,
-        name,
+        name, meta,
         component: _import(`${upperName(cur.name)}/${upperName(name)}`),
       })
     })
   } else {
     // 单一路由的配置
-    const { name } = cur;
+    const { name, meta } = cur;
     prev.push({
       path: `/demos/${name}`,
-      name,
+      name, meta,
       component: _import(`${upperName(name)}/index`),
     })
   }

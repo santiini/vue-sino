@@ -16,7 +16,12 @@ const menus = [
   {
     name: 'event-hub',
     icon: '&#xe62a',
-    list: ['parent', 'child', 'bus'],
+    // list: ['parent', 'child', 'bus'],
+    list: [
+      { name: 'parent', meta: { keepAlive: true } },
+      { name: 'child', meta: { keepAlive: true } },
+      { name: 'bus', meta: { keepAlive: true } },
+    ],
   },
   {
     name: 'filter-color',
@@ -29,11 +34,25 @@ const menus = [
   {
     name: 'indexedDB',
     icon: '&#xe62a',
-    list: ['index', 'dexie', 'indexedDB'],
+    // list: ['index', 'dexie', 'indexedDB'],
+    list: [
+      { name: 'indexedDB-index', meta: { keepAlive: true } },
+      { name: 'dexie', meta: { keepAlive: true } },
+      { name: 'indexedDB', meta: { keepAlive: true } },
+    ],
   },
   {
     name: 'inheritAttrs',
     icon: '&#xe62a',
+  },
+  {
+    name: 'keep-alive',
+    icon: '&#xe62a',
+    list: [
+      { name: 'keep-index', meta: { keepAlive: true } },
+      { name: 'keep-alive', meta: { keepAlive: true } },
+      { name: 'keep-not', meta: { keepAlive: true } },
+    ],
   },
 ];
 

@@ -46,6 +46,7 @@
     },
     destroy() {
       this.$root.eventHub.$off('selectDep', this.onSelectDep)
+      this.$sino && this.$sino.bus && this.$sino.bus.$off('testEventHub', this.onTestEventHub)
     },
     data() {
       return {
