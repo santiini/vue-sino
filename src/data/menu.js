@@ -54,6 +54,52 @@ const menus = [
       { name: 'keep-not', meta: { keepAlive: true } },
     ],
   },
+  {
+    name: 'mock',
+    icon: '&#xe62a',
+    list: [
+      { name: 'mock', meta: { keepAlive: true } },
+      { name: 'mock-user' },
+      { name: 'mock-article' },
+    ],
+  },
+  {
+    name: 'npm-plugins',
+    icon: '&#xe62a',
+    list: [
+      { name: 'plugins-list', meta: { keepAlive: true } },
+      { name: 'vue-better-scroll' },
+    ],
+  },
+  {
+    name: 'point-events',
+    icon: '&#xe62a',
+    list: [
+      { name: 'point-events-list' },
+      { name: 'none2' },
+    ],
+  },
+  {
+    name: 'video',
+    icon: '&#xe62a',
+  },
+  {
+    name: 'vue-masonry',
+    icon: '&#xe62a',
+    list: [
+      { name: 'masonry-list' },
+      { name: 'vue-masonry' },
+      { name: 'scroll-masonry' },
+    ],
+  },
+  {
+    name: 'vue-slick',
+    icon: '&#xe62a',
+  },
+  {
+    name: 'vue-ztree',
+    icon: '&#xe62a',
+  },
 ];
 
 export default menus;

@@ -7,6 +7,9 @@ const vuxLoader = require('vux-loader')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
+// 加入webpack对象：
+var webpack = require('webpack');
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -26,7 +29,9 @@ let webpackConfig = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': resolve('src'),
+      'utils': resolve('src/utils'),
+      'node': resolve('node_modules'),
     }
   },
   module: {
@@ -67,7 +72,17 @@ let webpackConfig = {
         }
       }
     ]
-  }
+  },
+  // 插件使用;
+  plugins: [
+    // 3. 配置全局使用 jquery
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      jquery: 'jquery',
+      "window.jQuery": 'jquery',
+    })
+  ],
 }
 
 

@@ -27,6 +27,7 @@
             x-icon(type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;")
         transition(@after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
           :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')")
+          //- 判断meta.keepAlive，组件是否缓存，并保存到keepAlList, 用vuex管理;
           keep-alive(:include="keepAlList")
             router-view.router-view
           //- 组件缓存--keep-alive的两种形式
@@ -45,7 +46,7 @@
           //- template(v-else)
           //-   router-view.router-view
             //- router-view.router-view(v-if="!$route.meta.keepAlive")
-        tabbar.vux-demo-tabbar(icon-class="vux-enter" v-show="!isTabbarDemo" slot="bottom")
+        tabbar.vux-demo-tabbar(icon-class="vux-enter" v-show="isTabbarDemo" slot="bottom")
           tabbar-item(:link="{path: '/'}" :selected="route.path === '/'")
             span.demo-icon-22.vux-demo-tabbar-icon-home(slot="icon" style="position:relative;top:-2px") &#xe637;
             span(slot="label") Home
@@ -142,7 +143,9 @@
         return /component|demo/.test(this.route.path)
       },
       isTabbarDemo() {
-        return /tabbar/.test(this.route.path)
+        // return /tabbar/.test(this.route.path)
+        const ignoreTabbarList = ['vue-better-scroll', 'vue-masonry', 'scroll-masonry']
+        return ignoreTabbarList.indexOf(this.route.name) < 0
       },
       title() {
         if (this.route.path === '/') return 'Home'

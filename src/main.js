@@ -2,13 +2,28 @@
 import Vue from 'vue';
 import FastClick from 'fastclick';
 import { sync } from 'vuex-router-sync'
-
+// 项目的第三方插件
+import VueScroller from 'vue-scroller';
+import VueMasonryPlugin from 'vue-masonry';
+// npm插件的学习
+import VueBetterScroller from 'vue-better-scroll'
+// 1.引入项目的router，store
 import router from './router';
 import store from './store';
 import App from './App';
-
+// es6-Promise等的使用
 require('es6-promise').polyfill()
 
+// 4.全局css文件的引用;
+// less: less文件全局引入后，组件仍然需要单独引入，因为less中的变量和mixins 等在组件内不能直接使用 -- 已解决，通过插件sass-resources-loader
+// import './style/base.less';
+// import '../src/styles/main.scss';
+// import '../src/sass/index.scss';
+
+// 该项目所有请求使用mockjs模拟 -- 本地mock数据
+import './mock/index.js';
+
+// 2. 引入项目中使用的plugins: vux插件
 import { DatetimePlugin, CloseDialogsPlugin, ConfigPlugin, BusPlugin, LocalePlugin, DevicePlugin, ToastPlugin, AlertPlugin, ConfirmPlugin, LoadingPlugin, WechatPlugin, AjaxPlugin, AppPlugin } from 'vux'
 
 store.registerModule('vux', {
@@ -43,7 +58,7 @@ Vue.use(ConfigPlugin, {
 
 sync(store, router);
 
-// plugins
+// plugins的使用
 Vue.use(DevicePlugin)
 Vue.use(ToastPlugin)
 Vue.use(AlertPlugin)
@@ -56,11 +71,16 @@ Vue.use(DatetimePlugin)
 
 Vue.use(CloseDialogsPlugin, router)
 
-
+// 第三方插件
+Vue.use(VueScroller); // 滚动插件vue-scroller
+Vue.use(VueMasonryPlugin); // 瀑布流插件vue-masonry
 // 自定义插件
 import { eventPlugin, IndexedDBPlugin } from './plugins'
 Vue.use(eventPlugin)
 Vue.use(IndexedDBPlugin)
+
+// npm中定义插件的学习
+Vue.use(VueBetterScroller)
 
 // simple history management
 const history = window.sessionStorage
@@ -68,6 +88,7 @@ history.clear()
 let historyCount = history.getItem('count') * 1 || 0
 history.setItem('/', 0)
 
+// 3. vue-router的全局钩子函数：beforeEach 和 afterEach
 router.beforeEach(function (to, from, next) {
   store.commit('updateLoadingStatus', {isLoading: true})
 
@@ -123,8 +144,8 @@ FastClick.attach(document.body);
 
 Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
-new Vue({
+// tips： 导出 Vue 实例， 可以在其他js文件中使用；
+const app = new Vue({
   router,
   store,
   // 方式1：eventHub依赖的组件挂载到根组件上;
@@ -135,3 +156,5 @@ new Vue({
   },
   render: h => h(App),
 }).$mount('#app-box');
+
+export default app;
