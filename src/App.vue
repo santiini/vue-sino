@@ -144,7 +144,7 @@
       },
       isTabbarDemo() {
         // return /tabbar/.test(this.route.path)
-        const ignoreTabbarList = ['vue-better-scroll', 'vue-masonry', 'scroll-masonry']
+        const ignoreTabbarList = ['vue-better-scroll', 'vue-masonry', 'scroll-masonry', 'promise-image-load']
         return ignoreTabbarList.indexOf(this.route.name) < 0
       },
       title() {
@@ -198,6 +198,7 @@
 </style>
 
 <style lang="stylus">
+  @import './style/stylus/index.styl'; // 测试全局引入.styl文件，失败;
   body
     background-color #fbf9fe
   html,body {

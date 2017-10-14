@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Promise 分步 - 2</title>
+  <style>
+    .pics{
+      width: 300px;
+      margin: 0 auto;
+    }
+    .pics img{
+      display: block;
+      width: 100%;
+    }
+    .loading{
+      text-align: center;
+      font-size: 14px;
+      color: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="loading">正在加载...</div>
+    <div class="pics">
+    </div>
+  </div>
+  <script>
+    (function () {
+      let index = 0
+      const urls = []
+      while (index < 20) {
+        urls.push(`./images/pic/${index}.jpg`)
+        index += 1
+      }
+      stepLoad(urls, loadImg, 6)
+        .then(() => {
+          console.log('全部的图片加载完毕!')
+        })
+
+      function stepLoad(urls, handler, stepNum) {
+        const createPromises = function (now, stepNum) {
+          const last = Math.min(stepNum + now, urls.length)
+          return urls.slice(now, last).map(handler)
+        }
+        let step = Promise.resolve()
+        for (let i = 0; i < urls.length; i += stepNum) {
+          step = step
+            .then(() => {
+              const promises = createPromises(i, stepNum)
+              return promises.reduce((task, imgPromise, index) => task
+              .then(() => imgPromise)
+              .then(() => {
+                console.log(`第 ${index + 1 + i} 张图片加载完成.`)
+              }), Promise.resolve())
+            })
+            .then(() => {
+              const current = Math.min(i + stepNum, urls.length)
+              console.log(`>> 总共${current}张已经加载完！`)
+            })
+        }
+        return step
+      }
+
+      function loadImg(url) {
+        return new Promise((resolve, reject) => {
+          const img = new Image()
+          img.onload = function () {
+            resolve(img)
+          }
+          img.onerror = reject
+          img.src = url
+        })
+      }
+    }())
+  </script>
+</body>
+</html>

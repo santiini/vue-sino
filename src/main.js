@@ -18,7 +18,8 @@ require('es6-promise').polyfill()
 // less: less文件全局引入后，组件仍然需要单独引入，因为less中的变量和mixins 等在组件内不能直接使用 -- 已解决，通过插件sass-resources-loader
 // import './style/base.less';
 // import '../src/styles/main.scss';
-// import '../src/sass/index.scss';
+import './style/scss/index.scss';
+// import './style/stylus//index.styl'; // 测试全局引入.styl文件，失败;
 
 // 该项目所有请求使用mockjs模拟 -- 本地mock数据
 import './mock/index.js';

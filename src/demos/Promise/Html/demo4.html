@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Promise 分步加载 - 1</title>
+  <style>
+    .pics{
+      width: 300px;
+      margin: 0 auto;
+    }
+    .pics img{
+      display: block;
+      width: 100%;
+    }
+    .loading{
+      text-align: center;
+      font-size: 14px;
+      color: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="loading">正在加载...</div>
+    <div class="pics">
+    </div>
+  </div>
+  <script>
+    (function () {
+      let index = 0
+      const step1 = [],
+        step2 = []
+
+      while (index < 10) {
+        step1.push(loadImg(`./images/pic/${index}.jpg`))
+        index += 1
+      }
+
+      step1.reduce((task, imgPromise, i) => task
+      .then(() => imgPromise)
+      .then(() => {
+        console.log(`第 ${i + 1} 张图片加载完成.`)
+      }), Promise.resolve())
+        .then(() => {
+          console.log('>> 前面10张已经加载完！')
+        })
+        .then(() => {
+          while (index < 20) {
+            step2.push(loadImg(baseUrl))
+            index += 1
+          }
+          return step2.reduce((task, imgPromise, i) => task
+          .then(() => imgPromise)
+          .then(() => {
+            console.log(`第 ${i + 11} 张图片加载完成.`)
+          }), Promise.resolve())
+        })
+        .then(() => {
+          console.log('>> 后面10张已经加载完')
+        })
+
+      function loadImg(url) {
+        return new Promise((resolve, reject) => {
+          const img = new Image()
+          img.onload = function () {
+            resolve(img)
+          }
+          img.onerror = reject
+          img.src = url
+        })
+      }
+    }())
+  </script>
+</body>
+</html>

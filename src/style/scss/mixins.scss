@@ -1,0 +1,85 @@
+// Keep images from scaling beyond the width of their parents.
+@mixin img-responsive($display: block) {
+  display: $display;
+  max-width: 100%; // Part 1: Set a maximum relative to the parent
+  height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
+}
+
+// Center element auto
+@mixin center-auto ($display: block) {
+	  display: $display;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Ellipsis font when text overflow
+@mixin font-ellipsis() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// Clearfix
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+//
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin margin($mg, $size) {
+  margin-#{$mg}: $size;
+}
+
+// 占位符选择器 %
+// 相比较于原生的css, % 占位符可以产生少量的代码;
+%bg-blue {
+  background-color: #4141E6;
+  color: #eee;
+}
+
+// mixins-- 简单mixin
+@mixin sass-demo1 {
+  background-color: #8E50F6;
+  padding: 10px;
+  text-align: center;
+  color: #FA4C3E;
+}
+
+// mixins -- mixin传参
+@mixin sass-demo2($bg-color: #8E50F6, $color: #FA4C3E) {
+  background-color: $bg-color;
+  color: $color;
+  font-size: 13px;
+}
+
+// @function: 自定义函数
+$baseFontSize: 16px !default;
+// pixels to rems
+// Sass 中自定义函数需要使用 @function 指令，并用 @return 指令返回结果
+@function pxToRem($px) {
+  @return $px / $baseFontSize * 1rem;
+}
+
+// @mixin -- @content: 类似于slot的功能，插槽，基于mixin拓展css
+@mixin baseRed() {
+  background-color: #eee;
+  color: #FA4C3E;
+  padding: 10px;
+  @content;
+}

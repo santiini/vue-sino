@@ -100,6 +100,23 @@ const menus = [
     name: 'vue-ztree',
     icon: '&#xe62a',
   },
+  {
+    name: 'vue-sass',
+    icon: '&#xe62a',
+  },
+  {
+    name: 'vue-stylus',
+    icon: '&#xe62a',
+  },
+  {
+    name: 'promise',
+    icon: '&#xe62a',
+    list: [
+      { name: 'promise-list' },
+      { name: 'promise-images' },
+      { name: 'promise-image-load' },
+    ],
+  },
 ];
 
 export default menus;

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Promise 控制最大并发数 - 方法2</title>
+  <style>
+    .pics{
+      width: 300px;
+      margin: 0 auto;
+    }
+    .pics img{
+      display: block;
+      width: 100%;
+    }
+    .loading{
+      text-align: center;
+      font-size: 14px;
+      color: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="loading">正在加载...</div>
+    <div class="pics">
+    </div>
+  </div>
+  <script>
+    (function () {
+      let index = 0
+      const urls = []
+      while (index < 20) {
+        urls.push(`./images/pic/${index}.jpg`)
+        index += 1
+      }
+      limitLoad(urls, loadImg, 5)
+        .then(() => {
+          console.log('全部图片加载完毕！')
+        })
+
+      function limitLoad(urls, handler, limit) {
+        const sequence = [].concat(urls) // 对数组做一个拷贝
+        const count = 0
+        let promises
+        const wrapHandler = function (url) {
+          const promise = handler(url).then(img => ({ img, index: promise }))
+          return promise
+        }
+        // 并发请求到最大数
+        promises = sequence.splice(0, limit).map(url => wrapHandler(url))
+
+        // limit 大于全部图片数, 并发全部请求
+        if (sequence.length <= 0) {
+          return Promise.all(promises)
+        }
+        return sequence.reduce((last, url) => last.then(() => Promise.race(promises)).catch((err) => {
+          console.error(err)
+        }).then((res) => {
+          const pos = promises.findIndex(item => item == res.index)
+          promises.splice(pos, 1)
+          promises.push(wrapHandler(url))
+        }), Promise.resolve()).then(() => Promise.all(promises))
+      }
+
+      function loadImg(url) {
+        return new Promise((resolve, reject) => {
+          const img = new Image()
+          img.onload = function () {
+            resolve(img)
+          }
+          img.onerror = reject
+          img.src = url
+        })
+      }
+    }())
+  </script>
+</body>
+</html>
