@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Promise 并发请求，顺序处理结果</title>
+  <style>
+    .pics{
+      width: 300px;
+      margin: 0 auto;
+    }
+    .pics img{
+      display: block;
+      width: 100%;
+    }
+    .loading{
+      text-align: center;
+      font-size: 14px;
+      color: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="loading">正在加载...</div>
+    <div class="pics">
+    </div>
+  </div>
+  <script>
+    (function () {
+      const urls = ['./images/1.jpg', './images/2.jpg', './images/3.jpg', './images/4.jpg']
+      const promises = urls.map(loadImg)
+
+      /*
+      let task = Promise.resolve()
+      for (let i = 0; i < promises.length; i++) {
+        task = task.then(() => promises[i]).then(addToHtml)
+      }
+      */
+
+      promises.reduce((task, imgPromise) => task.then(() => imgPromise).then(addToHtml), Promise.resolve())
+
+      function loadImg(url) {
+        return new Promise((resolve, reject) => {
+          const img = new Image()
+          img.onload = function () {
+            resolve(img)
+          }
+          img.onerror = reject
+          img.src = url
+        })
+      }
+
+      function addToHtml(img) {
+        document.querySelector('.wrap .pics').appendChild(img)
+      }
+    }())
+  </script>
+</body>
+</html>

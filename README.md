@@ -45,6 +45,27 @@
 
 ### vux中的scrollbar的css问题：--待解决
 
+## vue-cli的最佳实践
+
+### 全局使用sass,less中的变量，mixins,function
+
+#### sass, less变量的全局使用 -- sass-resources-loader
+
+> 修改build/util.js文件，详情查看： https://segmentfault.com/a/1190000010324128#articleHeader2
+
+#### sass, less, stylus的相同点和不同点
+
+1. 嵌套语法相同， 包括选择器的嵌套、父选择器的引用`&-`
+
+2. 变量声明，less和sass需要借助特殊符号，less声明：@red: #c00, sass声明： $red: #c00, stylus声明：red = #c00;
+
+3. 变量的作用域：sass和stylus一致，变量值输出时根据之前最近的一次定义计算。<br>
+Less 更倾向接近 CSS 的声明式，计算过程弱化调用时机；而 Sass 和 Stylus 更倾向于指令式。
+
+4. !default -- 适用于sass和stylus, 解决3产生的不一致问题，重写变量值来覆盖样式，重写第三方库的样式，需要第三方库的变量声明采用 !default
+
+5. 选择器插值：三者差不多。
+
 ### keep-alive和router-view结合的两种方式的解析
 
 1. keep-alive在2.2.0+版本中，利用属性include和exclude(最高优先级)来匹配 字符串、正则表达式 (使用 `v-bind`)、数组 (使用 `v-bind`)
@@ -86,7 +107,22 @@
 
 #### MockJS模拟本地数据，无需通过网络
 
+1. 引入mockjs
+
+2. 创建Mock文件夹，完善相关模块
+  * index.js 核心模块： 匹配axios请求的地址进行拦截，Mock.mock(turl, type, function(options))返回值
+  * 将不同的url对应的内容模块化处理，从核心模块分离
+  * 在每个单独模块中，处理function(options)的逻辑，获取请求参数options，并利用MockApi，生成返回数据;
+
+3. 在main.js中，引入Mock的核心模块
+```js
+  // 该项目所有请求使用mockjs模拟
+  import './mock/index.js';
+```
+
 #### Easy-Mock模拟数据，通过网络
+
+> 详情可查看： http://www.easy-mock.com/login
 
 ### vue框架中jquery的使用注意项
 

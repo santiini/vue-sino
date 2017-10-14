@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Promise 控制最大并发数 - 方法1</title>
+  <style>
+    .pics{
+      width: 300px;
+      margin: 0 auto;
+    }
+    .pics img{
+      display: block;
+      width: 100%;
+    }
+    .loading{
+      text-align: center;
+      font-size: 14px;
+      color: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="loading">正在加载...</div>
+    <div class="pics">
+    </div>
+  </div>
+  <script>
+    (function () {
+      let index = 0
+      const urls = []
+      while (index < 20) {
+        urls.push(`./images/pic/${index}.jpg`)
+        index += 1
+      }
+      limitLoad(urls, loadImg, 4)
+        .then(() => {
+          console.log('全部图片加载完毕！')
+        })
+
+      function limitLoad(urls, handler, limit) {
+        const sequence = [].concat(urls) // 对数组做一个拷贝
+        let count = 0
+        const promises = []
+
+        const load = function () {
+          if (sequence.length <= 0 || count > limit) return
+          count += 1
+          console.log(`当前并发数: ${count}`)
+          return handler(sequence.shift())
+            .catch((err) => {
+              console.error(err)
+            })
+            .then(() => {
+              count -= 1
+              console.log(`当前并发数：${count}`)
+            })
+            .then(() => load())
+        }
+
+        for (let i = 0; i < limit && i < sequence.length; i++) {
+          promises.push(load())
+        }
+        return Promise.all(promises)
+      }
+
+      function loadImg(url) {
+        return new Promise((resolve, reject) => {
+          const img = new Image()
+          img.onload = function () {
+            resolve(img)
+          }
+          img.onerror = reject
+          img.src = url
+        })
+      }
+    }())
+  </script>
+</body>
+</html>

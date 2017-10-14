@@ -1,0 +1,38 @@
+// mixins,functions
+
+// mixin的简单实用
+top-bottom-border(sides)
+  for side in sides
+    if side == top
+      border-{side}-color orange
+    else if side == bottom
+      border-{side}-color #45c64f
+    else if side == left
+      border-{side}-color grey
+    else if side == right
+      border-{side}-color blue
+
+// slot功能的两种使用方式
+// 1. 方式1
+slot-base1(more)
+  color: red
+  padding middle
+   {more}
+// 2. 方式2
+slot-base2()
+  color blue
+  background-color purple
+  {block}
+
+//  mixin,function中的匿名参数： arguments
+border-radius()
+  border-radius: arguments
+
+// 函数的传参：sass和stylus支持直接指定参数名的方式传入参数，有名参数
+// tips: 默认参数 key = value; 命名式的传参
+paramsFunc(mg = small, pd = middle, color = red, bg = #eee, border = 1px solid black)
+  margin mg
+  padding pd
+  color color
+  background-color bg
+  border border
