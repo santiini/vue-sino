@@ -126,6 +126,14 @@ const menus = [
   },
   { name: 'errors' },
   { name: 'vue-table' },
+  {
+    name: 'svg-canvas-mask',
+    list: [
+      { name: 'mask-list' },
+      { name: 'mask-demo1', meta: { hideHeader: true } },
+    ],
+  },
+  { name: 'functional-component' },
 ];
 
 export default menus;

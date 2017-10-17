@@ -20,7 +20,7 @@
           radio(v-model="showPlacement" :options="['left', 'right']" @on-change="onPlacementChange")
       //- main content
       view-box(ref="viewBox" body-padding-top="46px" body-padding-bottom="55px")
-        x-header.sino-header(slot="header" :left-options="leftOptions" :right-options="rightOptions"
+        x-header.sino-header(v-if="!route.meta || !route.meta.hideHeader" slot="header" :left-options="leftOptions" :right-options="rightOptions"
           :title="title" :transition="headerTransition" @on-click-more="onClickMore")
           span(v-if="route.path === '/' || route.path === '/component/drawer'" slot="overwrite-left"
             @click="drawerVisibility = !drawerVisibility")
@@ -144,7 +144,7 @@
       },
       isTabbarDemo() {
         // return /tabbar/.test(this.route.path)
-        const ignoreTabbarList = ['vue-better-scroll', 'vue-masonry', 'scroll-masonry', 'promise-image-load']
+        const ignoreTabbarList = ['vue-better-scroll', 'vue-masonry', 'scroll-masonry', 'promise-image-load', 'mask-demo1']
         return ignoreTabbarList.indexOf(this.route.name) < 0
       },
       title() {
