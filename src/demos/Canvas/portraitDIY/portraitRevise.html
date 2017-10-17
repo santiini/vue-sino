@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>头像修改页面</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="./portraitRevise.css">
+</head>
+<body>
+	<div class="portraitContainer" id="portraitContainer">
+		<div class="header">
+			<input type="text" name="imgName" id='imgName' readonly="readonly">
+			<input type="file" name="selectPic" id='selectPic' value="file" accept="image/jpeg,image/jpg,image/png">
+			<span style="color: #6d808e;font-size: 10px;">支持jprg、jgp、png</span>
+		</div>
+		<div class="imgContainer" id="imgContainer">
+			<div class="imgContainerRect"></div>
+		</div>
+		<div class="smallPicGroups">
+			<div class="smallPicContainer_60">
+				<canvas class="smallPic_60" width="60" height="60" id="smallPic_60">
+				
+				</canvas>
+				<div class="pixel">60x60像素</div>
+			</div>
+			<div class="smallPicContainer_120">
+				<canvas class="smallPic_120" width="120" height="120" id="smallPic_120">
+					
+				</canvas>
+				<div class="pixel">120x120像素</div>
+			</div>
+		</div>
+		<div class="diyPortrait">
+			<label>宽度：</label><input type="text" name="portraitWidth" class="portraitWidth">
+			<label>高度：</label><input type="text" name="portraitHeight" class="portraitHeight"> 
+			<span>自定义头像</span>
+		</div>
+		<canvas id="screenCanvas" width="180" height="180" style="visibility:hidden;"></canvas>
+	</div>
+	
+	<script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
+	<script src="https://cdn.bootcss.com/jcanvas/16.7.3/jcanvas.min.js"></script>
+	<script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+	<script type="text/javascript" src="./portraitReviseV4.js"></script>
+</body>
+</html>

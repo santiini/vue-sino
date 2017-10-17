@@ -5,7 +5,7 @@
         :span="1/3" v-for="component of list" :key="component.name" @click.native="go(component)")
         //- :span="1/3" v-for="component of list" :key="component.name" @click.native="go(component.name.toLowerCase())")
         .vux-1px-r.cbox-inner
-          span.demo-icon.demo-icon-big(v-html="component.icon" :style="{ color: component.color }")
+          span.demo-icon.demo-icon-big(v-html="component.icon || '&#xe62a'" :style="{ color: component.color }")
           br
           span(:style="{fontSize: component.name.length > 12 ? '12px' : ''}") {{ component.name | camelCase }}
 </template>

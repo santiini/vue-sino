@@ -1860,6 +1860,12 @@ debug@2.6.8:
   dependencies:
     ms "2.0.0"
 
+debug@^3.0.1:
+  version "3.1.0"
+  resolved "http://registry.npm.taobao.org/debug/download/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  dependencies:
+    ms "2.0.0"
+
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/decamelize/download/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
@@ -2485,6 +2491,12 @@ event-emitter@~0.3.5:
 eventemitter3@1.x.x:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/eventemitter3/download/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
+
+eventhelper@^1.0.3:
+  version "1.0.3"
+  resolved "http://registry.npm.taobao.org/eventhelper/download/eventhelper-1.0.3.tgz#3d26cad228c7f8bbcfd7c122c6ae2ee7fc4558bb"
+  dependencies:
+    debug "^3.0.1"
 
 events@^1.0.0:
   version "1.1.1"
@@ -7015,6 +7027,10 @@ vue-style-loader@^3.0.0:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-table2@^1.0.4:
+  version "1.0.4"
+  resolved "http://registry.npm.taobao.org/vue-table2/download/vue-table2-1.0.4.tgz#d0e978f8b9ff05d74abf21a36509320fda4e93e8"
 
 vue-template-compiler@^2.2.4:
   version "2.4.4"

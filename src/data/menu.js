@@ -117,6 +117,15 @@ const menus = [
       { name: 'promise-image-load' },
     ],
   },
+  {
+    name: 'event-helper',
+    icon: '&#xe62a',
+    list: [
+      { name: 'event-helper-list' },
+    ],
+  },
+  { name: 'errors' },
+  { name: 'vue-table' },
 ];
 
 export default menus;

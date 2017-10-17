@@ -11,6 +11,7 @@
     x-button(@click.native="loadAsyncImages") 抽象方法，分n批加载图片，每一批m张
     x-button(@click.native="loadRecursiveImages") 用递归实现，分n批加载图片，每一批m张
     x-button(@click.native="loadRaceImages") Promise.race()，分n批加载图片，每一批m张
+    x-button(@click.native="eventhelperLoad") 第三方库eventhelper
     .images-list(ref="images")
       //- img.logo(:src="imgUrl")
 </template>
@@ -18,6 +19,7 @@
 <script>
   /* eslint-disable no-plusplus,no-undef */
   import { Divider, XButton } from 'vux'
+  import EventHelper from 'eventhelper'
 
   // 图片加载的Promise
   const loadImage = url => new Promise((resolve, reject) => {
@@ -179,6 +181,20 @@
     })
   }
 
+  // 利用第三方库eventhelper来实现
+  const emmiter11 = new EventHelper()
+  const loadImgs = (url, callback) => {
+    const img = document.createElement('img')
+    img.onload = () => callback(null, img)
+    img.onerror = error => callback(error, null)
+    img.src = url
+  }
+  emmiter11.fail({
+    loadImages(error) {
+      console.log(error)
+    },
+  })
+
   export default {
     name: 'promise-images-onload',
     components: {
@@ -333,6 +349,20 @@
         }
         raceLoad(this.images, loadImage, 4, appentImageFn)
       },
+      // demo9: 利用第三方库： eventhelper
+      eventhelperLoad() {
+        emmiter11.concurrent('loadImages', 4, loadImgs, this.images)
+      },
+      handlerLoadImages(result) {
+        console.log(result)
+        if (!result.result) {
+          return console.log(`第${result.index}张图片加载失败`)
+        }
+        const appentImageFn = (img) => {
+          this.$refs.images && this.$refs.images.appendChild(img)
+        }
+        appentImageFn(result.result)
+      },
     },
     created() {
       this.imgUrl = 'http://wmh.cnpc.com.cn/Upload/meetingLogo/201708031106381860253.jpg'
@@ -340,6 +370,8 @@
       //   this.imgUrl = 'http://wmh.cnpc.com.cn/Upload/meetingLogo/201708031106381860253.jpg'
       // }, 500)
       // this.imgUrl = require('assets/nav.jpg')
+      console.log(emmiter11)
+      emmiter11.on('loadImages', this.handlerLoadImages)
     },
     mounted() {
       // 1. ref -- 指向html元素自身，挂载在html上;
