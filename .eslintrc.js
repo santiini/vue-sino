@@ -66,5 +66,6 @@ module.exports = {
     // 方法表达式是否需要命名
     "func-names": 0,
     "no-unused-expressions": 0,
+    "no-param-reassign": 0,
   }
 }

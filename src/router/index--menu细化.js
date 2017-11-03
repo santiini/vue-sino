@@ -34,14 +34,10 @@ const menuRoutes = menus.reduce((prev, cur) => {
   } else {
     // 单一路由的配置
     const { name, meta } = cur;
-    const path = cur.path || `/demos/${name}`
-    const component = cur.component || `${upperName(name)}/index`
     prev.push({
-      path,
-      // path: `/demos/${name}`,
+      path: `/demos/${name}`,
       name, meta,
-      component: _import(component),
-      // component: _import(`${upperName(name)}/index`),
+      component: _import(`${upperName(name)}/index`),
     })
   }
   return prev;
@@ -58,13 +54,10 @@ const vuxRoutes = vuxComponents.map((component) => {
     }
   }
   const { name, meta } = component;
-  const path = component.path || `/vux/component/${name}`;
-  const componentPath = component.component || `VuxComponents/Demos/${upperName(name)}`
   return {
-    path,
+    path: `/vux/component/${name}`,
     name: `vux-${name}`,
-    component:_import(componentPath),
-    // component: _import(`VuxComponents/Demos/${upperName(name)}`),
+    component: _import(`VuxComponents/Demos/${upperName(name)}`),
   }
 });
 console.log(vuxRoutes)

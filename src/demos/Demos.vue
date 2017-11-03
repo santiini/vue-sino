@@ -44,8 +44,10 @@
       go(demo) {
         const { name, list } = demo
         const routeName = demo.list ? `${name}/${list[0].name}` : `${name}`
+        const path = demo.path || `/demos/${routeName}`
         // console.log(routeName)
-        this.$router.push(`/demos/${routeName}`)
+        this.$router.push(path)
+        // this.$router.push(`/demos/${routeName}`)
       },
       // 菜单列表分割
       splitArray(array) {
@@ -56,7 +58,7 @@
           prev[index] ? prev[index].push(cur) : prev[index] = [cur]
           return prev
         }, [])
-        console.log(list)
+        // console.log(list)
         const lastLength = list[list.length - 1].length
         if (lastLength < 3) {
           for (let i = 0; i < 3 - lastLength; i++) {

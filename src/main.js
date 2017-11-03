@@ -1,4 +1,5 @@
 /* eslint-disable */
+require('es6-promise').polyfill();
 import Vue from 'vue';
 import FastClick from 'fastclick';
 import { sync } from 'vuex-router-sync'
@@ -12,7 +13,7 @@ import router from './router';
 import store from './store';
 import App from './App';
 // es6-Promise等的使用
-require('es6-promise').polyfill()
+// require('es6-promise').polyfill();
 
 // 4.全局css文件的引用;
 // less: less文件全局引入后，组件仍然需要单独引入，因为less中的变量和mixins 等在组件内不能直接使用 -- 已解决，通过插件sass-resources-loader
@@ -89,6 +90,7 @@ history.clear()
 let historyCount = history.getItem('count') * 1 || 0
 history.setItem('/', 0)
 
+console.log(router.options.routes)
 // 3. vue-router的全局钩子函数：beforeEach 和 afterEach
 router.beforeEach(function (to, from, next) {
   store.commit('updateLoadingStatus', {isLoading: true})
@@ -157,5 +159,10 @@ const app = new Vue({
   },
   render: h => h(App),
 }).$mount('#app-box');
+
+// Vue 捕捉全局性的错误
+Vue.config.errorHandler = (err, vm, info) => {
+  console.log(err)
+}
 
 export default app;

@@ -6,12 +6,10 @@
  */
 const menus = [
   {
-    name: 'demo-class',
-    icon: '&#xe62a',
+    name: 'demo-class', icon: '&#xe62a',
   },
   {
-    name: 'es6-class',
-    icon: '&#xe62a',
+    name: 'es6-class', icon: '&#xe62a',
   },
   {
     name: 'event-hub',
@@ -24,12 +22,10 @@ const menus = [
     ],
   },
   {
-    name: 'filter-color',
-    icon: '&#xe62a',
+    name: 'filter-color', icon: '&#xe62a',
   },
   {
-    name: 'image-onload',
-    icon: '&#xe62a',
+    name: 'image-onload', icon: '&#xe62a',
   },
   {
     name: 'indexedDB',
@@ -42,8 +38,7 @@ const menus = [
     ],
   },
   {
-    name: 'inheritAttrs',
-    icon: '&#xe62a',
+    name: 'inheritAttrs', icon: '&#xe62a',
   },
   {
     name: 'keep-alive',
@@ -80,8 +75,7 @@ const menus = [
     ],
   },
   {
-    name: 'video',
-    icon: '&#xe62a',
+    name: 'video', icon: '&#xe62a',
   },
   {
     name: 'vue-masonry',
@@ -97,16 +91,13 @@ const menus = [
     icon: '&#xe62a',
   },
   {
-    name: 'vue-ztree',
-    icon: '&#xe62a',
+    name: 'vue-ztree', icon: '&#xe62a',
   },
   {
-    name: 'vue-sass',
-    icon: '&#xe62a',
+    name: 'vue-sass', icon: '&#xe62a',
   },
   {
-    name: 'vue-stylus',
-    icon: '&#xe62a',
+    name: 'vue-stylus', icon: '&#xe62a',
   },
   {
     name: 'promise',
@@ -134,6 +125,28 @@ const menus = [
     ],
   },
   { name: 'functional-component' },
+  { name: 'vue-ref' },
+  // 1. 含有子页面的路由
+  {
+    name: 'vue-http',
+    list: [
+      { name: 'HttpList' },
+      { name: 'Axios' },
+      { name: 'Fly' },
+    ],
+  },
+  // 2. 没有子页面的路由
+  { name: 'decorator' },
+  // 3. 基于原始路由的修改
+  { name: 'vux-list', path: '/vux/list', component: 'VuxComponents/VuxList' },
+  {
+    name: 'es6-array',
+    list: [
+      { name: 'array-list' },
+      { name: 'array-reduce' },
+    ],
+  },
+  { name: 'vue-for' },
 ];
 
 export default menus;

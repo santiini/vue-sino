@@ -9,6 +9,7 @@
      x-button(@click.native="printStaticConst") 不可变更属性 -- 静态属性
      x-button(@click.native="testProps") 静态属性和实例属性的关联
      x-button(@click.native="testChangeProps") 改变实例属性 --setter和 getter
+     x-button(@click.native="testClass") 测试与总结
 </template>
 
 <script>
@@ -75,6 +76,12 @@
         console.log(`改前：${Democlass.staticProp1}`)
         Democlass.staticProp1 = '改变下的测试'
         console.log(`改后：${Democlass.staticProp1}`)
+      },
+      testClass() {
+        // 类的静态方法： 访问的属性测试
+        // Democlass.staticMethod()
+        // 实例的方法， 访问到的属性测试
+          this.demo.instanceMethod()
       },
     },
     created() {

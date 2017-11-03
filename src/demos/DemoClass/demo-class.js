@@ -71,6 +71,22 @@ export default class Database {
   changeType(type) {
     this.type = type;
   }
+
+  // 静态方法中 的 this, 访问实例属性的测试
+  // tips: this 指向 Class 类本身，和 实例无关，也无法访问到实例的属性
+  static staticMethod() {
+    console.log(this)
+    console.log(this.title)
+    console.log(this.email)
+  }
+
+  // 实例方法中, this 访问属性测试
+  // tips: this 指向实例， 可以访问实例属性，同时可以通过 类本身来访问类的静态属性
+  instanceMethod() {
+    console.log(this)
+    console.log(this.title)
+    console.log(Database.email)
+  }
 }
 
 // tips: 定义静态属性 -- 简单的方法;
@@ -104,25 +120,37 @@ class Circle {
   constructor(radius) {
       this.radius = radius;
       Circle.circlesMade++;
-  };
+  }
+
   static draw(circle, canvas) {
       // Canvas绘制代码
-  };
+      console.log('静态方法')
+  }
+
   static get circlesMade() {
       return !this._count ? 0 : this._count;
-  };
+  }
+
   static set circlesMade(val) {
       this._count = val;
-  };
+  }
+
   area() {
       return Math.pow(this.radius, 2) * Math.PI;
-  };
+  }
+
   get radius() {
       return this._radius;
-  };
+  }
+
   set radius(radius) {
       if (!Number.isInteger(radius))
           throw new Error("圆的半径必须为整数。");
       this._radius = radius;
-  };
+  }
+
+  static staticMethod() {
+    console.log('静态方法')
+    console.log(`实例属性：${this.radius}`)
+  }
 }

@@ -1,4 +1,6 @@
 /* eslint-disable */
+// 1. 元素指令： 当点击元素自身以外的dom元素时，触发事件
+// 1. 事件绑定和事件解绑;
 export default {
   bind: function (el, { value }) {
     let onClickOutside = value
