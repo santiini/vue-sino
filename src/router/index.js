@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { menus, vuxComponents } from '@/data'
+import { menus, vuxComponents, VueApi, es6Api } from '@/data'
 
 /* eslint-disable */
 // 开发环境不使用组件懒加载，提升webpack编译速度; 生产环境使用component-lazy-load;
@@ -15,6 +15,7 @@ const upperName = (name) => {
   const names = name.split('-').map(el => firstUpper(el)).join('')
   return names
 };
+
 // 根据data 动态配置路由列表 -- 路由级数和路由名称的大小写转化;
 const menuRoutes = menus.reduce((prev, cur) => {
   if (cur.list) {
@@ -67,7 +68,49 @@ const vuxRoutes = vuxComponents.map((component) => {
     // component: _import(`VuxComponents/Demos/${upperName(name)}`),
   }
 });
-console.log(vuxRoutes)
+// console.log(vuxRoutes);
+
+// routes: Vuejs 相关的路由
+const VueRoutes = VueApi.reduce((prev, cur) => {
+  if (cur.isHome) return prev;
+  const { name, meta } = cur;
+  const path = cur.path || `/vue/api/2.X/${name}`;
+  const component = cur.component || `Vue2.X/${upperName(name)}/index`;
+  prev.push({
+    path,
+    name: `vue-${name}`,
+    component: _import(component),
+  })
+  return prev;
+}, []);
+
+// routes: es6 相关的路由
+const es6Routes = es6Api.reduce((prev, cur) => {
+  if (cur.isHome) return prev;
+  if (cur.list) {
+    cur.list.forEach((router) => {
+      const { name, meta } = router;
+      const path = router.path || `/es6/api/${cur.name}/${name}`;
+      const component = router.component || `ES6Api/${upperName(cur.name)}/${upperName(name)}`
+      prev.push({
+        path,
+        name: `es6-${cur.name}-${name}`,
+        component: _import(component),
+      })
+    })
+  } else {
+    const { name, meta } = cur;
+    const path = cur.path || `/es6/api/${name}`;
+    const component = cur.component || `ES6Api/${upperName(name)}/index`;
+    prev.push({
+      path,
+      name: `es6-${name}`,
+      component: _import(component),
+    })
+  }
+  return prev;
+}, []);
+console.log(es6Routes);
 
 export default new Router({
   routes: [
@@ -89,8 +132,14 @@ export default new Router({
     },
     // 用于组件缓存测试的组件
     // ...
+    // 1. 菜单的路由
     ...menuRoutes,
+    // 2. vux 组件的路由
     ...vuxRoutes,
+    // 3. vue-api 的路由
+    ...VueRoutes,
+    // 4. es6-api 的路由
+    ...es6Routes,
     // {
     //   path: '/demos/class',
     //   name: 'class',
@@ -101,7 +150,7 @@ export default new Router({
     {
       path: '/core-decorator',
       name: 'core-decorator',
-      component: _import('Decorator/CoreDecorator/index')
+      component: _import('ES6Api/Decorator/CoreDecorator/index')
     }
   ],
 });

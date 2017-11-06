@@ -144,7 +144,8 @@
       },
       isTabbarDemo() {
         // return /tabbar/.test(this.route.path)
-        const ignoreTabbarList = ['vue-better-scroll', 'vue-masonry', 'scroll-masonry', 'promise-image-load', 'mask-demo1']
+        const ignoreTabbarList = ['vue-better-scroll', 'vue-masonry', 'scroll-masonry',
+          'promise-image-load', 'mask-demo1', 'better-scroll']
         return ignoreTabbarList.indexOf(this.route.name) < 0
       },
       title() {

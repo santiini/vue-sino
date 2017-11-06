@@ -2,6 +2,7 @@
   .demo-npm-plugins
     group(title="npm插件的学习")
       cell(title="vue-better-scroll" :link="{ path: '/demos/npm-plugins/vue-better-scroll' }")
+      cell(title="better-scroll" :link="{ path: '/demos/npm-plugins/better-scroll' }")
 </template>
 
 <script>

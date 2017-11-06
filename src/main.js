@@ -90,7 +90,7 @@ history.clear()
 let historyCount = history.getItem('count') * 1 || 0
 history.setItem('/', 0)
 
-console.log(router.options.routes)
+// console.log(router.options.routes)
 // 3. vue-router的全局钩子函数：beforeEach 和 afterEach
 router.beforeEach(function (to, from, next) {
   store.commit('updateLoadingStatus', {isLoading: true})

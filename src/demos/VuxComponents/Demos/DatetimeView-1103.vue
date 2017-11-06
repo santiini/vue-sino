@@ -32,8 +32,13 @@
     },
     props: {
       title: String,
+      value: {
+        type: Array,
+        default: () => [],
+      },
     },
     watch: {
+      // datetime-view 的值
       dateValue(newVal, oldVal) {
         if (this.type === 0) return
         if (this.type === 1) {
@@ -43,6 +48,9 @@
           this.endTime = newVal
         }
       },
+      // 开始时间
+
+      // 结束时间
     },
     methods: {
       // 重置

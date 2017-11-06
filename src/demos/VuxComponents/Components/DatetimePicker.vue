@@ -10,7 +10,7 @@
 
 <script>
   import { Group, XButton } from 'vux'
-  import DatePicker from '@/components/DatetimeRange'
+  import DatePicker from '@/components/DatetimeRange/sync'
 
   export default {
     name: 'demo-datetime-range',

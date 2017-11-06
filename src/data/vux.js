@@ -12,6 +12,7 @@ const vux = [
   { name: 'datetime-range' },
   { name: 'datetime-view' },
   { name: 'datetime-picker', component: 'VuxComponents/Components/DatetimeRange' },
+  { name: 'picker-datetime', component: 'VuxComponents/Components/DatetimePicker' },
 ];
 
 export default vux;

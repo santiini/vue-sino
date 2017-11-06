@@ -38,9 +38,6 @@ const menus = [
     ],
   },
   {
-    name: 'inheritAttrs', icon: '&#xe62a',
-  },
-  {
     name: 'keep-alive',
     icon: '&#xe62a',
     list: [
@@ -64,6 +61,7 @@ const menus = [
     list: [
       { name: 'plugins-list', meta: { keepAlive: true } },
       { name: 'vue-better-scroll' },
+      { name: 'better-scroll' },
     ],
   },
   {
@@ -125,7 +123,6 @@ const menus = [
     ],
   },
   { name: 'functional-component' },
-  { name: 'vue-ref' },
   // 1. 含有子页面的路由
   {
     name: 'vue-http',
@@ -135,18 +132,24 @@ const menus = [
       { name: 'Fly' },
     ],
   },
+  // {
+  //   name: 'es6-array',
+  //   list: [
+  //     { name: 'array-list' },
+  //     { name: 'array-reduce' },
+  //   ],
+  // },
   // 2. 没有子页面的路由
-  { name: 'decorator' },
+  // { name: 'decorator' },
   // 3. 基于原始路由的修改
+  // tips: Vux 组件的路由
   { name: 'vux-list', path: '/vux/list', component: 'VuxComponents/VuxList' },
-  {
-    name: 'es6-array',
-    list: [
-      { name: 'array-list' },
-      { name: 'array-reduce' },
-    ],
-  },
-  { name: 'vue-for' },
+  { name: 'vue2.X', path: '/vue/api/list', component: 'Vue2.X/List' },
+  { name: 'es6-api', path: '/es6/api/list', component: 'ES6Api/ES6Api' },
+  // { name: 'vue-for' },
+  // { name: 'vue-sync' },
+  // { name: 'vue-ref' },
+  // { name: 'inheritAttrs', icon: '&#xe62a' },
 ];
 
 export default menus;

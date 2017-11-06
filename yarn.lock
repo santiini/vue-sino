@@ -1033,6 +1033,12 @@ better-scroll@^1.3.0:
   dependencies:
     babel-runtime "^6.0.0"
 
+better-scroll@^1.4.0:
+  version "1.4.0"
+  resolved "http://registry.npm.taobao.org/better-scroll/download/better-scroll-1.4.0.tgz#05266f12cffb6073d061e617ac4c36eaf0a2504d"
+  dependencies:
+    babel-runtime "^6.0.0"
+
 big.js@^3.1.3:
   version "3.2.0"
   resolved "http://registry.npm.taobao.org/big.js/download/big.js-3.2.0.tgz#a5fc298b81b9e0dca2e458824784b65c52ba588e"
