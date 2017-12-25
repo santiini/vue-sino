@@ -47,6 +47,7 @@
 // 1. get(target, propKey, receiver) : 拦截某个属性的读取操作
 // 参数有 3 个： 依次为目标对象、属性名和 proxy 实例本身（即this关键字指向的那个对象），其中最后一个参数可选。
 
+// tips: 如果一个属性不可配置（configurable）和不可写（writable），则该属性不能被代理，通过 Proxy 对象访问该属性会报错
 // demo1: 属性代理
 const person = {
   name: 'sunxiaotao',
@@ -85,16 +86,30 @@ const createArray = (...elements) => {
 };
 
 // demo3: 属性的链式操作
+/* eslint-disable */
+// const double = n => n * 2;
+// const pow = n => n * n;
+// const reverseInt = n => n.toString().split('').reverse().join('') | 0;
+// 定义一个共调用的函数对象
+const tools = {
+  double: n => n * 2,
+  pow: n => n * n,
+  reverseInt: n => n.toString().split('').reverse().join('') || 0,
+};
 const pipe = (function () {
   return function (value) {
     const funcStack = [];
     const oproxy = new Proxy({}, {
       get(pipeObj, fnName) {
         if (fnName === 'get') {
-          return funcStack.reduce((val, fn) => fn(val), value);
+          // return funcStack.reduce((val, fn) => fn(val), value);
+          return funcStack.reduce(function(val, fn){
+            return fn(val)
+          }, value);
         }
         // 添加
-        funcStack.push(window[fnName]);
+        funcStack.push(tools[fnName]);
+        // funcStack.push(window[fnName]);
         return oproxy;
       },
     });
@@ -103,10 +118,14 @@ const pipe = (function () {
   }
 }());
 
+
+const testPipe = n => pipe(n).double.pow.reverseInt.get;
+
 export {
   personProxy,
   personProxy2,
   createArray,
   pipe,
+  testPipe,
 }
 

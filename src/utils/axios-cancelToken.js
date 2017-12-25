@@ -1,7 +1,7 @@
 /**
  * axios的进一步封装;
  */
-import axios, { CancelToken } from 'axios';
+import axios from 'axios';
 
 // import store from '../store';
 // import router from '../router';
@@ -79,12 +79,3 @@ export default function fetchData(options) {
 
 // 导出原生的axios，以便使用： axios.all([]), axios.spread()等方法的使用;
 export { axios as _axios };
-
-// 取消请求
-export function request(options) {
-  const source = CancelToken.source();
-  setTimeout(() => {
-    source.cancel();
-  }, 500);
-  return axios(options)
-}

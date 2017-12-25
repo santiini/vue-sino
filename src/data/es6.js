@@ -20,6 +20,8 @@ const menus = [
   },
   { name: 'decorator' },
   { name: 'proxy' },
+  { name: 'reflect' },
+  { name: 'symbol' },
 ];
 
 export default menus;

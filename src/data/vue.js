@@ -15,6 +15,7 @@ const menus = [
   { name: 'vue-ref' },
   { name: 'vue-sync' },
   { name: 'v-model' },
+  { name: 'value-change' },
 ];
 
 export default menus;

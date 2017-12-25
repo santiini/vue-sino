@@ -61,7 +61,7 @@ const menus = [
     list: [
       { name: 'plugins-list', meta: { keepAlive: true } },
       { name: 'vue-better-scroll' },
-      { name: 'better-scroll' },
+      { name: 'better-scroll', meta: { keepAlive: true } },
     ],
   },
   {
@@ -150,6 +150,13 @@ const menus = [
   // { name: 'vue-sync' },
   // { name: 'vue-ref' },
   // { name: 'inheritAttrs', icon: '&#xe62a' },
+  {
+    name: 'vue-router',
+    list: [
+      { name: 'router-list' },
+    ],
+  },
+  { name: 'axios' },
 ];
 
 export default menus;

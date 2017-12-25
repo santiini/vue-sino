@@ -109,13 +109,12 @@
     },
     data() {
       return {
-        beforePullDown: true, // 下拉刷新的回弹图标的显示
+        beforePullDown: true,
         isRebounding: false,
         isPullingDown: false,
         pulling: false,
-        // isPullUpLoad: false, // 模板中控制，文字和loading显示: true: loading, false: 显示文字;
-        // FIXME: 初始值定位 true, 开始就处于加载状态
-        isPullUpLoad: true,
+        isPullUpLoad: false, // 模板中控制，文字和loading显示: true: loading, false: 显示文字;
+        // isPullUpLoad: true, // 初始值定位 true, 开始就处于加载状态
         pullUpDirty: true, // 控制显示: true: 显示更多， false: 没有更多;
         pullDownStyle: '',
         bubbleY: 0,
@@ -215,7 +214,6 @@
             this._afterPullDown()
           })
         } else if (this.pullUpLoad && this.isPullUpLoad) {
-          console.log('加载完毕')
           this.isPullUpLoad = false
           this.scroll.finishPullUp()
           this.pullUpDirty = dirty
@@ -225,13 +223,10 @@
         }
       },
       _initPullDownRefresh() {
-        // 下拉刷新的监听
         this.scroll.on('pullingDown', () => {
-          this.beforePullDown = false // 显示下拉的icon
-          this.isPullingDown = true // 下拉。。。
-          this.pulling = true // 下拉中的 loading...
-
-          this.pullUpDirty = true // FIXME: 初始化上拉加载的文字
+          this.beforePullDown = false
+          this.isPullingDown = true
+          this.pulling = true
           this.$emit('pullingDown')
         })
 
@@ -277,7 +272,6 @@
     watch: {
       data() {
         setTimeout(() => {
-          // 监听 data 变化， 重置scroller
           this.forceUpdate(true)
         }, this.refreshDelay)
       }
