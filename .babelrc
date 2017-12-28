@@ -3,7 +3,7 @@
     ["env", { "modules": false }],
     "stage-0"
   ],
-  "plugins": ["transform-runtime", "transform-decorators-legacy"],
+  "plugins": ["transform-runtime", "transform-decorators-legacy", "transform-vue-jsx"],
   "comments": false,
   "env": {
     "test": {

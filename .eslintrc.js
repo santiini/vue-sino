@@ -67,5 +67,6 @@ module.exports = {
     "func-names": 0,
     "no-unused-expressions": 0,
     "no-param-reassign": 0,
+    "no-tabs": "off",
   }
 }

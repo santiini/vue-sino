@@ -25,6 +25,7 @@
               console.log('11111111111')
             })
             .catch((err) => {
+              console.log('直接进入失败回调')
               console.log(2222222222222)
             })
         };

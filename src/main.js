@@ -5,7 +5,7 @@ import FastClick from 'fastclick';
 import { sync } from 'vuex-router-sync'
 // 项目的第三方插件
 import VueScroller from 'vue-scroller';
-import VueMasonryPlugin from 'vue-masonry';
+import {VueMasonryPlugin} from 'vue-masonry';  // api改变导致引用方式改变;
 // npm插件的学习
 import VueBetterScroller from 'vue-better-scroll'
 // 1.引入项目的router，store

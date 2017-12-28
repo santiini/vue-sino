@@ -16,6 +16,12 @@ const menus = [
   { name: 'vue-sync' },
   { name: 'v-model' },
   { name: 'value-change' },
+  { name: 'Extends' },
+  { name: 'Is' },
+  { name: 'Hoc' },
+  { name: 'create-element' },
+  { name: 'Jsx' },
+
 ];
 
 export default menus;

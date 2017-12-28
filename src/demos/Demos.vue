@@ -2,7 +2,7 @@
   .demo-list-box#demo_list_box(:style="{height: `${height}px`}" ref="demolist")
     flexbox(:gutter="0" v-for="(list,index) of components" :key="index")
       flexbox-item.cbox.vux-1px-t.vux-tap-active(
-        :span="1/3" v-for="component of list" :key="component.name" @click.native="go(component)")
+        :span="1/3" v-for="(component,i) of list" :key="getComponentName(component,i)" @click.native="go(component)")
         //- :span="1/3" v-for="component of list" :key="component.name" @click.native="go(component.name.toLowerCase())")
         .vux-1px-r.cbox-inner
           span.demo-icon.demo-icon-big(v-html="component.icon || '&#xe62a'" :style="{ color: component.color }")
@@ -66,6 +66,13 @@
           }
         }
         return list
+      },
+      // getComponentName 获取组件名称
+      getComponentName(component, i) {
+        if (component.name === '---') {
+          return `${component.name}-${i}`
+        }
+        return component.name
       },
     },
     activated() {
