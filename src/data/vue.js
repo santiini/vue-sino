@@ -21,6 +21,7 @@ const menus = [
   { name: 'Hoc' },
   { name: 'create-element' },
   { name: 'Jsx' },
+  { name: 'slot-scope' },
 
 ];
 

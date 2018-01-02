@@ -3,7 +3,7 @@
  */
 import Com1 from './com1.vue';
 
-//  demo1: 直接到处对象;
+//  demo1: 直接导出对象： html 标签
 export const Demo1 = {
   name: 'demos-create-element-demo1',
   render(h) {
@@ -16,6 +16,7 @@ export const Demo1 = {
   },
 };
 
+// demo2: html 标签改变 css
 export const Demo2 = {
   name: 'demos-create-element-demo1',
   render(h) {
@@ -40,6 +41,7 @@ export const Demo2 = {
   },
 };
 
+// demo3: 组件渲染
 export const Demo3 = {
   name: 'demos-create-element-demo2',
   // 组件 options
