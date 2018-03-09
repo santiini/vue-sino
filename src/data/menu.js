@@ -146,6 +146,7 @@ const menus = [
   { name: 'vux-list', path: '/vux/list', component: 'VuxComponents/VuxList' },
   { name: 'vue2.X', path: '/vue/api/list', component: 'Vue2.X/List' },
   { name: 'es6-api', path: '/es6/api/list', component: 'ES6Api/ES6Api' },
+  { name: 'css-study', path: '/css/study', component: 'CssStudy/List' },
   // { name: 'vue-for' },
   // { name: 'vue-sync' },
   // { name: 'vue-ref' },
@@ -157,6 +158,21 @@ const menus = [
     ],
   },
   { name: 'axios' },
+  { name: 'reg' },
+  { name: 'long-tap' },
+  // 0104 menu 菜单格式修改
+  {
+    name: 'vue-this',
+    title: 'vue的this对象',
+    icon: '&#xe62a',
+    isExpanded: true,
+    list: [
+      { name: 'list', isHome: true, title: 'this的各项属性', isHidden: true },
+      { name: 'props' },
+      { name: 'attrs' },
+      { name: 'listeners' },
+    ],
+  },
 ];
 
 export default menus;

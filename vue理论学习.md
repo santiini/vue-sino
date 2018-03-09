@@ -457,6 +457,17 @@ render 函数中没有相关的 api, 需要使用原生的 JavaScript 来实现
 + 选择让组件通过 slot() 系统分发或者简单的通过 children 接收
 + 区分 函数式组件 和 一般组件的 slots,  this.$slots.default, context.slots().default
 
+#### methods 和 listeners 的使用
+
+在函数式组件中，不存在 this 和 组件实例，所以不能通过 this 访问到实例，需要通过其其他方法实现:
+
+##### context.listeners 是一个指向 data.on 的别名
+
+函数化组件的事件监听是通过 createElement 的 options(data) 配置中的 on 实现事件监听， 至于模板中的 methods 使用，
+可以通过 context.parent.methodName 来实现，
+
+#### context.parent 的使用
+
 ### jsx 的使用
 
 在 vue 使用 jsx 语法，需要使用 babel 插件 [babel-plugin-transform-vue-jsx](https://github.com/vuejs/babel-plugin-transform-vue-jsx)，具体使用前准备如下:
@@ -488,5 +499,7 @@ npm install\
     return <div id="foo">bar</div>
   }
 ```
+
+#### jsx 中的事件绑定 onClick 和 nativeOnClick
 
 ## Vue 中 TypeScript 的使用

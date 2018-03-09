@@ -138,7 +138,7 @@ export default {
                     // 阻止 事件冒泡
                     event.stopPropagation();
                     // 阻止该元素默认的keyup事件
-                    event.preventDefault();
+                    // event.preventDefault();
                   },
                 },
               }, '按钮事件'),

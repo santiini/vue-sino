@@ -17,9 +17,25 @@ export const Demo1 = {
 };
 
 // demo2: html 标签改变 css
+// tips:
+// props 的使用
+// data 的使用
 export const Demo2 = {
   name: 'demos-create-element-demo1',
+  // 通过 this.name 访问到 props 属性
+  props: {
+    name: String,
+    age: Number,
+    list: Array,
+  },
+  data() {
+    return {
+      title: 'demo2-title',
+    }
+  },
   render(h) {
+    console.log(this)
+    console.log(this.name)
     return h(
       'div',
       {
@@ -33,10 +49,16 @@ export const Demo2 = {
         },
         style: {
           backgroundColor: 'yellow',
-          'margin-left': '10px',
+          // 'margin-left': '10px',
+          margin: '5px',
         },
       },
-      '这是demo2文字部分',
+      // '这是demo2文字部分',
+      [
+        h('div', `data 数据：: ${this.title}`),
+        h('div', `props.name: ${this.name}`),
+        h('div', `props.age ${this.age}`),
+      ],
     );
   },
 };

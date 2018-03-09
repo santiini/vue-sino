@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { menus, vuxComponents, VueApi, es6Api } from '@/data'
+import { menus, vuxComponents, VueApi, es6Api, CssStudy } from '@/data'
 
 /* eslint-disable */
 // 开发环境不使用组件懒加载，提升webpack编译速度; 生产环境使用component-lazy-load;
@@ -21,13 +21,20 @@ const menuRoutes = menus.reduce((prev, cur) => {
   if (cur.list) {
     // 这是一个多路由的配置
     cur.list.forEach((item) => {
-      const { name, meta } = item
+      const { name, meta, isHome } = item
+      if (cur.isExpanded) {
+        // debugger
+      }
       const path = item.path || `/demos/${cur.name}/${name}`
-      const component = item.component || `${upperName(cur.name)}/${upperName(name)}`
+      // const component = item.component || `${upperName(cur.name)}/${upperName(name)}`
+      const component = item.component
+        || (cur.isExpanded && !isHome && `${upperName(cur.name)}/${upperName(name)}/index`)
+        || `${upperName(cur.name)}/${upperName(name)}`
       prev.push({
-        path,
         // path: `/demos/${cur.name}/${name}`,
-        name, meta,
+        path,
+        name: `menu-${cur.name}-${name}`,
+        meta,
         component: _import(component),
         // component: _import(`${upperName(cur.name)}/${upperName(name)}`),
       })
@@ -40,7 +47,8 @@ const menuRoutes = menus.reduce((prev, cur) => {
     prev.push({
       path,
       // path: `/demos/${name}`,
-      name, meta,
+      name: `menu-${name}`,
+      meta,
       component: _import(component),
       // component: _import(`${upperName(name)}/index`),
     })
@@ -110,7 +118,23 @@ const es6Routes = es6Api.reduce((prev, cur) => {
   }
   return prev;
 }, []);
-console.log(es6Routes);
+// console.log(es6Routes);
+
+// routes: Vuejs 相关的路由
+const cssRoute = CssStudy.reduce((prev, cur) => {
+  if (cur.isHome) return prev;
+  const { name, meta } = cur;
+  const path = cur.path || `/css/study/${name}`;
+  const component = cur.component || `CssStudy/${upperName(name)}/index`;
+  prev.push({
+    path,
+    name: `css-${name}`,
+    component: _import(component),
+  })
+  return prev;
+}, []);
+
+console.log(cssRoute)
 
 export default new Router({
   routes: [
@@ -140,6 +164,8 @@ export default new Router({
     ...VueRoutes,
     // 4. es6-api 的路由
     ...es6Routes,
+    // 5. css进阶
+    ...cssRoute,
     // {
     //   path: '/demos/class',
     //   name: 'class',

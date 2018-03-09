@@ -22,7 +22,6 @@ const menus = [
   { name: 'create-element' },
   { name: 'Jsx' },
   { name: 'slot-scope' },
-
 ];
 
 export default menus;

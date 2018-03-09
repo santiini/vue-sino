@@ -4,12 +4,14 @@ import { Group, Cell, XButton } from 'vux';
 export default {
   name: 'functional-component',
   components: { Group, Cell, XButton },
-  methods: {
-    clickBtnHandle() {
-      event.stopPropagation();
-      console.log('点击按钮');
-    },
-  },
+
+  // 获取不到methods: context.methods
+  // methods: {
+  //   clickBtnHandle() {
+  //     event.stopPropagation();
+  //     console.log('点击按钮');
+  //   },
+  // },
   // 函数式组件
   // 1. 无状态（没有 data）
   // 2. 无实例（没有 this 上下文）。
@@ -91,6 +93,9 @@ export default {
       props: {
         title: 'header的固定title',
       },
+      // nativeOn: {
+      //   click: context.clickBtnHandle,
+      // },
       scopedSlots: {
         // tips: scopedSlots 必须是一个函数，返回渲染的结果，一般是： VNode
         // value: props => h(XButton, { props: { mini: true } }, '默认的按钮'),
@@ -100,6 +105,12 @@ export default {
     })
 
     return h(Group, {
+      // tips:
+      // data 对象中定义 事件监听 on, 相当于 template 中的 v-on 和 methods;
+      on: {
+        // changeType: () => {}, createElement 的 options 中定义事件监听
+        // 还可以: 通过 context.parent.method 方法调用
+      },
       props: { title: 'functional component' },
     }, [
       header, slotTemp, ...propsArr, footer,

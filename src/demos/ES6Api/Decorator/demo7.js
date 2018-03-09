@@ -14,9 +14,9 @@ class Demo7 {
 
 // decorator 函数
 function dec(id) {
-  console.log(`外层：${id}`);
+  // console.log(`外层：${id}`);
     return (target, name, descriptor) => {
-      console.log(`内层：${id}`);
+      // console.log(`内层：${id}`);
     }
 }
 

@@ -1,13 +1,14 @@
 <template lang="pug">
   .demo-vue-extends
     group(:title="title")
+      x-input(title="姓名" v-model="name")
       component(:is="curView" :name="curView === 'Com1' ? 'demo1' : 'demo2'" :list="list" @clickCell="onClickCell")
     group(title="动态改变组件")
       x-button(@click.native="changeView") 改变组件
 </template>
 
 <script>
-  import { Group, Cell, XButton } from 'vux'
+  import { Group, Cell, XButton, XInput } from 'vux'
 
   import Com1 from './Com1'
   import Com2 from './Com2'
@@ -17,7 +18,7 @@
   export default {
     name: 'demos-vue2-is-component1',
     components: {
-      Group, Cell, XButton, Com1, Com2,
+      Group, Cell, XButton, Com1, Com2, XInput,
     },
     methods: {
       changeView() {
@@ -25,6 +26,9 @@
       },
       onClickCell(name) {
         console.log(name)
+      },
+      getName() {
+        this.name = '孙小涛'
       },
     },
     watch: {
@@ -50,6 +54,7 @@
     created() {
       console.log('is特性的index');
       console.log('根据不同组件使用不同方法获取数据')
+      this.getName()
     },
     data() {
       return {
@@ -57,6 +62,7 @@
         curView: 'Com1',
         // curView: Com1,
         list: [],
+        name: '3243242',
       }
     },
   }

@@ -7,7 +7,9 @@
         .vux-1px-r.cbox-inner
           span.demo-icon.demo-icon-big(v-html="component.icon || '&#xe62a'" :style="{ color: component.color }")
           br
-          span(:style="{fontSize: component.name.length > 12 ? '12px' : ''}") {{ component.name | camelCase }}
+          span(
+            :style="{fontSize: component.name.length > 12 ? '12px' : ''}"
+          ) {{ component.title || component.name | camelCase }}
 </template>
 
 <script>

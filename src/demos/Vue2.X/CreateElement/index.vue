@@ -5,7 +5,12 @@
     </group>
     <group title="demos 展示">
       <demo1 v-if="curDemo === 1" />
-      <demo2 v-if="curDemo === 2" />
+      <demo2
+        v-if="curDemo === 2"
+        name="demo3-name"
+        :age="18"
+        :list="[1,2,3,4,5]"
+      />
       <demo3
         v-if="curDemo === 3"
         name="demo3-name"
@@ -96,7 +101,7 @@
         // demos: [1, 2, 3, 4, 5, 52, 51, 511, 53],
         demos: [
           { value: '简单html标签', key: 1 },
-          { value: 'html标签改变css', key: 2 },
+          { value: 'props,css', key: 2 },
           { value: '组件渲染', key: 3 },
           { value: '渲染子组件的slot', key: 4 },
           { value: '父组件的scoped-slot', key: 5 },
@@ -105,7 +110,7 @@
           { value: '默认的slot、js编程', key: 7 },
           { value: '函数式组件', key: 8 },
         ],
-        curDemo: 8,
+        curDemo: 2,
         slotList: [
           { id: 0, name: 'list0' },
           { id: 1, name: 'list1' },
